@@ -5,6 +5,8 @@ VisualStudioVersion = 17.6.33717.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SolarSystem", "SolarSystem.vcxproj", "{4FB56FB2-CC91-4621-AF46-91346AB3C4DE}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "太阳系模拟系统", "..\SolarSystemInstaller\SolarSystemInstaller.vdproj", "{C37E2509-0E65-41D8-A0FA-4BB4182E0929}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,11 @@ Global
 		{4FB56FB2-CC91-4621-AF46-91346AB3C4DE}.Release|x64.Build.0 = Release|x64
 		{4FB56FB2-CC91-4621-AF46-91346AB3C4DE}.Release|x86.ActiveCfg = Release|Win32
 		{4FB56FB2-CC91-4621-AF46-91346AB3C4DE}.Release|x86.Build.0 = Release|Win32
+		{C37E2509-0E65-41D8-A0FA-4BB4182E0929}.Debug|x64.ActiveCfg = Debug
+		{C37E2509-0E65-41D8-A0FA-4BB4182E0929}.Debug|x86.ActiveCfg = Debug
+		{C37E2509-0E65-41D8-A0FA-4BB4182E0929}.Release|x64.ActiveCfg = Release
+		{C37E2509-0E65-41D8-A0FA-4BB4182E0929}.Release|x64.Build.0 = Release
+		{C37E2509-0E65-41D8-A0FA-4BB4182E0929}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
