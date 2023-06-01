@@ -19,18 +19,19 @@ void Star::update(double elapsedTime)
 void Star::draw(double centerX, double centerY) const
 {
 	// ªÊ÷∆–««Ú
-	setfillcolor(RED);
-	setlinecolor(RED);
+	setfillcolor(YELLOW);
+	setlinecolor(YELLOW);
 	setlinestyle(PS_SOLID, 1);
-	fillcircle(centerX, centerY, radius);
+	fillcircle(centerX, centerY, radius*1.3);
 
 	// œ‘ æ–««Ú√˚◊÷
-	settextcolor(WHITE);
+	settextcolor(BLACK);
 	settextstyle(15, 0, _T("Arial"), 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH);
 	
+	RECT rect{ centerX - 20, centerY - 20, centerX + 20, centerY + 20 };
 	_bstr_t bstr(name.c_str());
 	LPTSTR s = (LPTSTR)bstr;
-	outtextxy((int)centerX - 10, (int)centerY - 8, s);
+	drawtext(s, &rect, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 }
 
 double Star::getRotationSpeed() const
