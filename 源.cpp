@@ -16,9 +16,17 @@ using namespace std;
 */
 inline void Background() {
 	setbkmode(TRANSPARENT);
-	IMAGE background;
+	/*IMAGE background;
 	loadimage(&background, _T("background.jpg"), 1600, 900, true);
-	putimage(0, 0, &background);
+	putimage(0, 0, &background);*/
+	//显示渐变色的背景
+	int red=100, green=210, blue=243;
+setfillcolor(RGB(red, green, blue));
+fillrectangle(0, 0, 1600, 900);
+for (int i = 0; i < 900; i++)
+{
+	setlinecolor(RGB(red + i, green, blue + ((i % 50) - 50)));
+}
 }
 
 
