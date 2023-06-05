@@ -1,15 +1,43 @@
+#pragma once
 #include "Planet.h"
 #include "Info.h"
 #include <graphics.h>
 #include <comdef.h>
+#pragma comment( lib, "MSIMG32.LIB")
 #define M_PI 3.14159265358979323846
 
+/*
+* 透明绘图函数
+* dstimg: 目标图像
+* x, y: 目标图像的左上角坐标
+* srcimg: 源图像
+*/
+void transparentimage3(IMAGE* dstimg, int x, int y, IMAGE* srcimg)
+{
+	HDC dstDC = GetImageHDC(dstimg);	//获取目标图像的句柄
+	HDC srcDC = GetImageHDC(srcimg);	//获取源图像的句柄
+	int w = srcimg->getwidth();			//获取源图像的宽度
+	int h = srcimg->getheight();		//获取源图像的高度
+	BLENDFUNCTION bf = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };	//设置混合函数
+	AlphaBlend(dstDC, x, y, w, h, srcDC, 0, 0, w, h, bf);		//混合绘图
+}
+
+/*
+* 构造函数
+* planetName: 行星名字
+* distance: 行星距离太阳的距离
+* planetRadius: 行星半径
+* orbitPeriod: 行星公转周期
+* rotationPeriod: 行星自转周期
+* planetInclination: 行星轨道倾角
+*/
 Planet::Planet(const std::string& planetName, float distance, float planetRadius,
 	float orbitPeriod, float rotationPeriod, float planetInclination,
-	float planetEccentricity, const LPCSTR planetTexturePath, const std::string infoPath) :
+	float planetEccentricity, float size, const LPCSTR planetTexturePath, const std::string infoPath) :
 	name(planetName), distanceFromSun(distance), radius(planetRadius), orbitPeriod(orbitPeriod),
 	rotationPeriod(rotationPeriod), inclination(planetInclination), eccentricity(planetEccentricity),
-	texturePath(planetTexturePath), currentAngle(0), currentRotation(0), planetInfo(infoPath, planetName) {}
+	imagesize(size), texturePath(planetTexturePath), currentAngle(0), currentRotation(0), 
+	planetInfo(infoPath, planetName) {}
 
 void Planet::update(float elapsedTime)
 {
@@ -32,17 +60,14 @@ void Planet::draw(float centerX, float centerY) const
 	setlinestyle(PS_JOIN_ROUND | PS_ENDCAP_ROUND, 2);
 	circle(centerX, centerY, distance);
 
-	// 画行星
-	setfillcolor(CYAN);
-	setlinecolor(CYAN);
-	fillcircle(getOrbitalX(centerX), getOrbitalY(centerY), 7);
-
 	// 为行星添加贴图
+	float size_x, size_y;
+	size_x = 25.0 * imagesize;
+	size_y = 25.0 * imagesize;
 	setbkmode(TRANSPARENT);
 	IMAGE planet;
-	loadimage(&planet, texturePath, 20, 20, true);
-	putimage((int)getOrbitalX(centerX) - 10, (int)getOrbitalY(centerY) - 10, &planet);
-
+	loadimage(&planet, texturePath, size_x, size_y, true);
+	transparentimage3(NULL, (int)getOrbitalX(centerX) - size_x / 2, (int)getOrbitalY(centerY) - size_y / 2, &planet);
 
 	// 显示行星信息
 	settextcolor(WHITE);
@@ -51,7 +76,7 @@ void Planet::draw(float centerX, float centerY) const
 	// 显示行星名字
 	_bstr_t bstr(name.c_str());
 	LPTSTR s = (LPTSTR)bstr;
-	outtextxy((int)getOrbitalX(centerX) + 5, (int)getOrbitalY(centerY) + 5, s);
+	outtextxy((int)getOrbitalX(centerX) + 8, (int)getOrbitalY(centerY) + 8, s);
 }
 
 float Planet::getOrbitalSpeed() const

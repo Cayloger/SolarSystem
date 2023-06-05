@@ -12,7 +12,7 @@ private:
 	Info starInfo;			// 星球信息
 public:
 	// 构造函数
-	Star(const std::string& starName, double starRadius, double starRotationPeriod, const LPCSTR starTexturePath, string infoPath = "StarInfo.txt");
+	Star(const std::string& starName, double starRadius, double starRotationPeriod, const LPCSTR starTexturePath, string infoPath = "Information//StarInfo.txt");
 	void update(double elapsedTime);					// 更新星球自转角度
 	void draw(double centerX, double centerY) const;	// 绘制星球
 	double getRotationSpeed() const;					// 获取星球自转速度	

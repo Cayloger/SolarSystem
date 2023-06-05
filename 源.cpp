@@ -17,7 +17,7 @@ using namespace std;
 inline void Background() {
 	setbkmode(TRANSPARENT);
 	IMAGE background;
-	loadimage(&background, _T("background.jpg"), 1600, 900, true);
+	loadimage(&background, _T("Image//background.jpg"), 1600, 900, true);
 	putimage(0, 0, &background);
 }
 
@@ -132,16 +132,16 @@ int main()
 	initgraph(1600, 900);	// 初始化图形界面
 
 	vector<Planet> planets;	// 行星数组
-	planets.emplace_back("Mercury", 35, 2, 88, 58, 7, 0.205, _T("Mercury.png"));
-	planets.emplace_back("Venus", 85, 6, 225, 243, 3.4, 0.007, _T("Venus.png"));
-	planets.emplace_back("Earth", 125, 6, 365, 1, 0, 0.017, _T("Earth.png"));
-	planets.emplace_back("Mars", 155, 3, 687, 1, 1.9, 0.093, _T("Mars.png"));
-	planets.emplace_back("Jupiter", 205, 69, 4333, 0.4, 1.3, 0.048, _T("Jupiter.png"));
-	planets.emplace_back("Saturn", 245, 58, 10759, 0.4, 2.5, 0.056, _T("Saturn.png"));
-	planets.emplace_back("Uranus", 290, 25, 30688, 0.7, 0.8, 0.047, _T("Uranus.png"));
-	planets.emplace_back("Neptune", 345, 24, 60182, 0.7, 1.8, 0.009, _T("Neptune.png"));
+	planets.emplace_back("Mercury", 35, 2, 88, 58, 7, 0.205, 1, _T("Image//Mercury.png"));
+	planets.emplace_back("Venus", 85, 6, 225, 243, 3.4, 0.007, 1, _T("Image//Venus.png"));
+	planets.emplace_back("Earth", 125, 6, 365, 1, 0, 0.017, 1, _T("Image//Earth.png"));
+	planets.emplace_back("Mars", 155, 3, 687, 1, 1.9, 0.093, 1, _T("Image//Mars.png"));
+	planets.emplace_back("Jupiter", 205, 69, 4333, 0.4, 1.3, 0.048, 1, _T("Image//Jupiter.png"));
+	planets.emplace_back("Saturn", 245, 58, 10759, 0.4, 2.5, 0.056, 1.1,  _T("Image//Saturn.png"));
+	planets.emplace_back("Uranus", 290, 25, 30688, 0.7, 0.8, 0.047, 1.4, _T("Image//Uranus.png"));
+	planets.emplace_back("Neptune", 345, 24, 60182, 0.7, 1.8, 0.009, 1, _T("Image//Neptune.png"));
 
-	Star sun("Sun", 12, 0, _T("Sun.png"));	// 太阳
+	Star sun("Sun", 50, 0, _T("Image//Sun.png"));	// 太阳
 
 	thread t1(Display, planets, sun);		// 显示行星
 	t1.join();

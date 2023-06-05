@@ -20,6 +20,7 @@ private:
 
 	float currentAngle;		// 当前角度
 	float currentRotation;	// 当前自转角度
+	float imagesize;		// 图片大小
 
 	Info planetInfo;		// 行星信息
 
@@ -27,7 +28,7 @@ public:
 	// 构造函数
 	Planet(const std::string& planetName, float distance, float planetRadius,
 		float orbitPeriod, float rotationPeriod, float planetInclination,
-		float planetEccentricity, const LPCSTR planetTexturePath, const std::string infoPath = "PlanetInfo.txt");
+		float planetEccentricity, float size, const LPCSTR planetTexturePath, const std::string infoPath = "Information//PlanetInfo.txt");
 
 	void update(float elapsedTime);					// 更新行星信息
 	void draw(float centerX, float centerY) const;	// 绘制行星
