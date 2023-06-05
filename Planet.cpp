@@ -6,7 +6,7 @@
 
 Planet::Planet(const std::string& planetName, float distance, float planetRadius,
 	float orbitPeriod, float rotationPeriod, float planetInclination,
-	float planetEccentricity, const std::wstring& planetTexturePath, const std::string infoPath) :
+	float planetEccentricity, const LPCSTR planetTexturePath, const std::string infoPath) :
 	name(planetName), distanceFromSun(distance), radius(planetRadius), orbitPeriod(orbitPeriod),
 	rotationPeriod(rotationPeriod), inclination(planetInclination), eccentricity(planetEccentricity),
 	texturePath(planetTexturePath), currentAngle(0), currentRotation(0), planetInfo(infoPath, planetName) {}
@@ -36,6 +36,13 @@ void Planet::draw(float centerX, float centerY) const
 	setfillcolor(CYAN);
 	setlinecolor(CYAN);
 	fillcircle(getOrbitalX(centerX), getOrbitalY(centerY), 7);
+
+	// 为行星添加贴图
+	setbkmode(TRANSPARENT);
+	IMAGE planet;
+	loadimage(&planet, texturePath, 20, 20, true);
+	putimage((int)getOrbitalX(centerX) - 10, (int)getOrbitalY(centerY) - 10, &planet);
+
 
 	// 显示行星信息
 	settextcolor(WHITE);
@@ -97,7 +104,7 @@ std::string Planet::getName() const
 	return name;
 }
 
-std::wstring Planet::getTexturePath() const
+LPCSTR Planet::getTexturePath() const
 {
 	return texturePath;
 }
@@ -152,7 +159,7 @@ void Planet::setEccentricity(float planetEccentricity)
 	eccentricity = planetEccentricity;
 }
 
-void Planet::setTexturePath(const std::wstring& planetTexturePath)
+void Planet::setTexturePath(const LPCSTR& planetTexturePath)
 {
 	texturePath = planetTexturePath;
 }

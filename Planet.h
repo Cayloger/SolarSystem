@@ -16,7 +16,7 @@ private:
 	float rotationPeriod;	// 自转周期
 	float inclination;		// 轨道倾角
 	float eccentricity;		// 轨道离心率
-	std::wstring texturePath;	// 行星纹理路径
+	LPCSTR texturePath;	// 行星纹理路径
 
 	float currentAngle;		// 当前角度
 	float currentRotation;	// 当前自转角度
@@ -27,7 +27,7 @@ public:
 	// 构造函数
 	Planet(const std::string& planetName, float distance, float planetRadius,
 		float orbitPeriod, float rotationPeriod, float planetInclination,
-		float planetEccentricity, const std::wstring& planetTexturePath, const std::string infoPath = "PlanetInfo.txt");
+		float planetEccentricity, const LPCSTR planetTexturePath, const std::string infoPath = "PlanetInfo.txt");
 
 	void update(float elapsedTime);					// 更新行星信息
 	void draw(float centerX, float centerY) const;	// 绘制行星
@@ -39,7 +39,7 @@ public:
 	float getRadius() const;						// 获取行星半径
 	float getDistanceFromSun() const;				// 获取行星距离太阳的距离
 	std::string getName() const;					// 获取行星名称
-	std::wstring getTexturePath() const;			// 获取行星纹理路径
+	LPCSTR getTexturePath() const;			// 获取行星纹理路径
 
 	float getCurrentAngle() const;					// 获取当前角度
 	float getCurrentRotation() const;				// 获取当前自转角度
@@ -55,7 +55,7 @@ public:
 	void setRotationPeriod(float period);			// 设置行星自转周期
 	void setInclination(float planetInclination);	// 设置行星轨道倾角
 	void setEccentricity(float planetEccentricity);	// 设置行星轨道离心率
-	void setTexturePath(const std::wstring& planetTexturePath);	// 设置行星纹理路径
+	void setTexturePath(const LPCSTR& planetTexturePath);	// 设置行星纹理路径
 
 	void setName(const std::string& planetName);	// 设置行星名称
 

@@ -2,7 +2,7 @@
 #include <graphics.h>
 #include <comdef.h>
 #define M_PI 3.14159265358979323846
-Star::Star(const std::string& starName, double starRadius, double starRotationPeriod, const std::wstring& starTexturePath, std::string infoPath)
+Star::Star(const std::string& starName, double starRadius, double starRotationPeriod, const LPCSTR starTexturePath, std::string infoPath)
 	: name(starName),
 	radius(starRadius),
 	rotationPeriod(starRotationPeriod),
@@ -50,7 +50,7 @@ std::string Star::getName() const
 	return name;
 }
 
-std::wstring Star::getTexturePath() const
+LPCSTR Star::getTexturePath() const
 {
 	return texturePath;
 }
@@ -75,7 +75,7 @@ void Star::setRotationPeriod(double period)
 	rotationPeriod = period;
 }
 
-void Star::setTexturePath(const std::wstring& starTexturePath)
+void Star::setTexturePath(const LPCSTR& starTexturePath)
 {
 	texturePath = starTexturePath;
 }
