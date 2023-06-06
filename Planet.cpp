@@ -1,26 +1,8 @@
-#pragma once
 #include "Planet.h"
 #include "Info.h"
 #include <graphics.h>
 #include <comdef.h>
-#pragma comment( lib, "MSIMG32.LIB")
 #define M_PI 3.14159265358979323846
-
-/*
-* 透明绘图函数
-* dstimg: 目标图像
-* x, y: 目标图像的左上角坐标
-* srcimg: 源图像
-*/
-void transparentimage3(IMAGE* dstimg, int x, int y, IMAGE* srcimg)
-{
-	HDC dstDC = GetImageHDC(dstimg);	//获取目标图像的句柄
-	HDC srcDC = GetImageHDC(srcimg);	//获取源图像的句柄
-	int w = srcimg->getwidth();			//获取源图像的宽度
-	int h = srcimg->getheight();		//获取源图像的高度
-	BLENDFUNCTION bf = { AC_SRC_OVER, 0, 255, AC_SRC_ALPHA };	//设置混合函数
-	AlphaBlend(dstDC, x, y, w, h, srcDC, 0, 0, w, h, bf);		//混合绘图
-}
 
 /*
 * 构造函数
@@ -31,15 +13,21 @@ void transparentimage3(IMAGE* dstimg, int x, int y, IMAGE* srcimg)
 * rotationPeriod: 行星自转周期
 * planetInclination: 行星轨道倾角
 */
-Planet::Planet(const std::string& planetName, float distance, float planetRadius,
-	float orbitPeriod, float rotationPeriod, float planetInclination,
-	float planetEccentricity, float size, const LPCSTR planetTexturePath, const std::string infoPath) :
-	name(planetName), distanceFromSun(distance), radius(planetRadius), orbitPeriod(orbitPeriod),
-	rotationPeriod(rotationPeriod), inclination(planetInclination), eccentricity(planetEccentricity),
-	imagesize(size), texturePath(planetTexturePath), currentAngle(0), currentRotation(0), 
-	planetInfo(infoPath, planetName) {}
+Planet::Planet(const std::string& planetName, double distance, double planetRadius,
+	double orbitPeriod, double rotationPeriod, double planetInclination,
+	double planetEccentricity, double isize, const LPCSTR planetTexturePath, const std::string infoPath)
+	: AstronomicalObject(planetName, planetRadius, isize, planetTexturePath, infoPath)
+{
+	this->distanceFromSun = distance;
+	this->orbitPeriod = orbitPeriod;
+	this->rotationPeriod = rotationPeriod;
+	this->inclination = planetInclination;
+	this->eccentricity = planetEccentricity;
+	this->currentAngle = 0;
+	this->currentRotation = 0;
+}
 
-void Planet::update(float elapsedTime)
+void Planet::update(double elapsedTime)
 {
 	// 更新角度
 	// θ = ω * t
@@ -49,10 +37,10 @@ void Planet::update(float elapsedTime)
 	currentRotation += getRotationSpeed() * elapsedTime;
 }
 
-void Planet::draw(float centerX, float centerY) const
+void Planet::draw(double centerX, double centerY)
 {
 	// 计算行星距离太阳的距离
-	float distance;
+	double distance;
 	distance = distanceFromSun / (1 - eccentricity);
 	
 	// 画轨道
@@ -61,140 +49,104 @@ void Planet::draw(float centerX, float centerY) const
 	circle(centerX, centerY, distance);
 
 	// 为行星添加贴图
-	float size_x, size_y;
-	size_x = 25.0 * imagesize;
-	size_y = 25.0 * imagesize;
-	setbkmode(TRANSPARENT);
-	IMAGE planet;
-	loadimage(&planet, texturePath, size_x, size_y, true);
-	transparentimage3(NULL, (int)getOrbitalX(centerX) - size_x / 2, (int)getOrbitalY(centerY) - size_y / 2, &planet);
+	AstronomicalObject::draw((int) getOrbitalX(centerX), (int) getOrbitalY(centerY));
 
 	// 显示行星信息
 	settextcolor(WHITE);
 	settextstyle(15, 0, _T("Arial"), 0, 0, 0, 0, 0, 0, DEFAULT_CHARSET, OUT_TT_ONLY_PRECIS, CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY, DEFAULT_PITCH);
 	
 	// 显示行星名字
-	_bstr_t bstr(name.c_str());
+	_bstr_t bstr(getName().c_str());
 	LPTSTR s = (LPTSTR)bstr;
 	outtextxy((int)getOrbitalX(centerX) + 8, (int)getOrbitalY(centerY) + 8, s);
 }
 
-float Planet::getOrbitalSpeed() const
+double Planet::getOrbitalSpeed() const
 {
 	// 计算半长轴
 	// a = r / (1 - e)
-	float semimajorAxis = distanceFromSun / (1 - eccentricity);
+	double semimajorAxis = distanceFromSun / (1 - eccentricity);
 	return (2 * M_PI * semimajorAxis) / orbitPeriod;
 }
 
-float Planet::getRotationSpeed() const
+double Planet::getRotationSpeed() const
 {
 	// 计算自转速度
 	// w = 2 * pi / T
 	return (2 * M_PI) / rotationPeriod;
 }
 
-float Planet::getOrbitalX(float centerX) const
+double Planet::getOrbitalX(double centerX) const
 {
 	// 计算半长轴
 	// a = r / (1 - e)
 	// 计算椭圆的参数方程
 	// x = a * cos(theta) * cos(i)
-	float semimajorAxis = distanceFromSun / (1 - eccentricity);
+	double semimajorAxis = distanceFromSun / (1 - eccentricity);
 	return centerX + semimajorAxis * std::cos(currentAngle) * std::cos(inclination * M_PI / 180);
 }
 
-float Planet::getOrbitalY(float centerY) const
+double Planet::getOrbitalY(double centerY) const
 {
 	// 计算半长轴
 	// a = r / (1 - e)
 	// 计算椭圆的参数方程
 	// y = a * sin(theta) * cos(i)
-	float semimajorAxis = distanceFromSun / (1 - eccentricity);
+	double semimajorAxis = distanceFromSun / (1 - eccentricity);
 	return centerY + semimajorAxis * std::sin(currentAngle) * std::cos(inclination * M_PI / 180);
 }
 
-float Planet::getRadius() const
-{
-	return radius;
-}
+//double Planet::getRadius() const
+//{
+//	return radius;
+//}
 
-float Planet::getDistanceFromSun() const
+double Planet::getDistanceFromSun() const
 {
 	return distanceFromSun;
 }
 
-std::string Planet::getName() const
-{
-	return name;
-}
-
-LPCSTR Planet::getTexturePath() const
-{
-	return texturePath;
-}
-
-float Planet::getCurrentAngle() const
+double Planet::getCurrentAngle() const
 {
 	return currentAngle;
 }
 
-float Planet::getCurrentRotation() const
+double Planet::getCurrentRotation() const
 {
 	return currentRotation;
 }
 
-void Planet::setCurrentAngle(float angle)
+void Planet::setCurrentAngle(double angle)
 {
 	currentAngle = angle;
 }
 
-void Planet::setCurrentRotation(float rotation)
+void Planet::setCurrentRotation(double rotation)
 {
 	currentRotation = rotation;
 }
 
-void Planet::setDistanceFromSun(float distance)
+void Planet::setDistanceFromSun(double distance)
 {
 	distanceFromSun = distance;
 }
 
-void Planet::setRadius(float planetRadius)
-{
-	radius = planetRadius;
-}
-
-void Planet::setOrbitPeriod(float period)
+void Planet::setOrbitPeriod(double period)
 {
 	orbitPeriod = period;
 }
 
-void Planet::setRotationPeriod(float period)
+void Planet::setRotationPeriod(double period)
 {
 	rotationPeriod = period;
 }
 
-void Planet::setInclination(float planetInclination)
+void Planet::setInclination(double planetInclination)
 {
 	inclination = planetInclination;
 }
 
-void Planet::setEccentricity(float planetEccentricity)
+void Planet::setEccentricity(double planetEccentricity)
 {
 	eccentricity = planetEccentricity;
-}
-
-void Planet::setTexturePath(const LPCSTR& planetTexturePath)
-{
-	texturePath = planetTexturePath;
-}
-
-void Planet::setName(const std::string& planetName)
-{
-	name = planetName;
-}
-
-Info& Planet::getPlanetInfo()
-{
-	return planetInfo;
 }

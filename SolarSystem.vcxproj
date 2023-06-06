@@ -128,12 +128,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AstronomicalObject.cpp" />
     <ClCompile Include="Info.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="源.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AstronomicalObject.h" />
     <ClInclude Include="Info.h" />
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Star.h" />

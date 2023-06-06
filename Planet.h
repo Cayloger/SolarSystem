@@ -6,60 +6,52 @@
 #include <cmath>
 #include <graphics.h>
 #include "Info.h"
+#include "AstronomicalObject.h"
 
-class Planet {
+class Planet : public AstronomicalObject{
 private:
-	std::string name;		// 行星名称
-	float distanceFromSun;	// 距离太阳的距离
-	float radius;			// 行星半径
-	float orbitPeriod;		// 公转周期
-	float rotationPeriod;	// 自转周期
-	float inclination;		// 轨道倾角
-	float eccentricity;		// 轨道离心率
-	LPCSTR texturePath;	// 行星纹理路径
+	//std::string name;		// 行星名称
+	double distanceFromSun;	// 距离太阳的距离
+	//double radius;			// 行星半径
+	double orbitPeriod;		// 公转周期
+	double rotationPeriod;	// 自转周期
+	double inclination;		// 轨道倾角
+	double eccentricity;		// 轨道离心率
+	//LPCSTR texturePath;	// 行星纹理路径
 
-	float currentAngle;		// 当前角度
-	float currentRotation;	// 当前自转角度
-	float imagesize;		// 图片大小
+	double currentAngle;		// 当前角度
+	double currentRotation;	// 当前自转角度
+	//double imagesize;		// 图片大小
 
-	Info planetInfo;		// 行星信息
+	//Info planetInfo;		// 行星信息
 
 public:
 	// 构造函数
-	Planet(const std::string& planetName, float distance, float planetRadius,
-		float orbitPeriod, float rotationPeriod, float planetInclination,
-		float planetEccentricity, float size, const LPCSTR planetTexturePath, const std::string infoPath = "Information//PlanetInfo.txt");
+	Planet(const std::string& planetName, double distance, double planetRadius,
+		double orbitPeriod, double rotationPeriod, double planetInclination,
+		double planetEccentricity, double isize, const LPCSTR planetTexturePath, 
+		const std::string infoPath = "Information//PlanetInfo.txt");
 
-	void update(float elapsedTime);					// 更新行星信息
-	void draw(float centerX, float centerY) const;	// 绘制行星
-	float getOrbitalSpeed() const;					// 获取行星公转速度	
-	float getRotationSpeed() const;					// 获取行星自转速度
-	float getOrbitalX(float centerX) const;			// 获取行星在X轴上的坐标
-	float getOrbitalY(float centerY) const;			// 获取行星在Y轴上的坐标
+	void update(double elapsedTime);					// 更新行星信息
+	void draw(double centerX, double centerY);	// 绘制行星
+	double getOrbitalSpeed() const;					// 获取行星公转速度	
+	double getRotationSpeed() const;					// 获取行星自转速度
+	double getOrbitalX(double centerX) const;			// 获取行星在X轴上的坐标
+	double getOrbitalY(double centerY) const;			// 获取行星在Y轴上的坐标
 
-	float getRadius() const;						// 获取行星半径
-	float getDistanceFromSun() const;				// 获取行星距离太阳的距离
-	std::string getName() const;					// 获取行星名称
-	LPCSTR getTexturePath() const;			// 获取行星纹理路径
+	double getDistanceFromSun() const;				// 获取行星距离太阳的距离
 
-	float getCurrentAngle() const;					// 获取当前角度
-	float getCurrentRotation() const;				// 获取当前自转角度
+	double getCurrentAngle() const;					// 获取当前角度
+	double getCurrentRotation() const;				// 获取当前自转角度
 
-	Info& getPlanetInfo();							// 获取行星信息
+	void setCurrentAngle(double angle);				// 设置当前角度
+	void setCurrentRotation(double rotation);		// 设置当前自转角度
 
-	void setCurrentAngle(float angle);				// 设置当前角度
-	void setCurrentRotation(float rotation);		// 设置当前自转角度
-
-	void setDistanceFromSun(float distance);		// 设置行星距离太阳的距离
-	void setRadius(float planetRadius);				// 设置行星半径
-	void setOrbitPeriod(float period);				// 设置行星公转周期
-	void setRotationPeriod(float period);			// 设置行星自转周期
-	void setInclination(float planetInclination);	// 设置行星轨道倾角
-	void setEccentricity(float planetEccentricity);	// 设置行星轨道离心率
-	void setTexturePath(const LPCSTR& planetTexturePath);	// 设置行星纹理路径
-
-	void setName(const std::string& planetName);	// 设置行星名称
-
+	void setDistanceFromSun(double distance);		// 设置行星距离太阳的距离
+	void setOrbitPeriod(double period);				// 设置行星公转周期
+	void setRotationPeriod(double period);			// 设置行星自转周期
+	void setInclination(double planetInclination);	// 设置行星轨道倾角
+	void setEccentricity(double planetEccentricity);	// 设置行星轨道离心率
 };
 
 #endif
