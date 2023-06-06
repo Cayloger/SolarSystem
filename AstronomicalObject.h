@@ -10,11 +10,11 @@ private:
 	double radius;			// 行星半径
 	double imagesize;		// 星球图片大小
 	LPCSTR texturePath;		// 星球纹理路径
-	Info ObjectInfo;			// 星球信息
+	Info ObjectInfo;		// 星球信息
 public:
 	AstronomicalObject();	// 默认构造函数
 	AstronomicalObject(const std::string& starName, double starRadius, double size, const LPCSTR& starTexturePath, string infoPath);
-	void draw(double centerX, double centerY);	// 绘制星球
+	virtual void draw(double centerX, double centerY);	// 绘制星球
 	double getRadius() const;						// 获取星球半径
 	double getImageSize() const;					// 获取星球图片大小
 	std::string getName() const;					// 获取星球名称

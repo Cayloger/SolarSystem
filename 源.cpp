@@ -143,7 +143,7 @@ int main()
 	planets.emplace_back("Uranus", 290, 25, 30688, 0.7, 0.8, 0.047, 35, _T("Image//Uranus.png"));
 	planets.emplace_back("Neptune", 345, 24, 60182, 0.7, 1.8, 0.009, 25, _T("Image//Neptune.png"));
 
-	Star sun("Sun", 218, 0, 50, _T("Image//Sun.png"));	// 太阳
+	Star sun("Sun", 218, 0, 60, _T("Image//Sun.png"));	// 太阳
 
 	thread t1(Display, planets, sun);		// 显示行星
 	t1.join();	// 等待线程结束

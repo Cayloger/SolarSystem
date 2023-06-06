@@ -23,7 +23,13 @@ AstronomicalObject::AstronomicalObject(const std::string& starName, double starR
 
 void AstronomicalObject::transparentimage(IMAGE* dstimg, int x, int y, IMAGE* srcimg)
 {
-	// 透明绘图
+	/*
+	* 参数说明：
+	* dstimg：目标图像，如果为NULL，则默认为当前窗口
+	* x：目标图像的x坐标
+	* y：目标图像的y坐标
+	* srcimg：源图像
+	*/
 	HDC dstDC = GetImageHDC(dstimg);	//获取目标图像的句柄
 	HDC srcDC = GetImageHDC(srcimg);	//获取源图像的句柄
 	int w = srcimg->getwidth();			//获取源图像的宽度
@@ -34,6 +40,11 @@ void AstronomicalObject::transparentimage(IMAGE* dstimg, int x, int y, IMAGE* sr
 
 void AstronomicalObject::draw(double centerX, double centerY)
 {
+	/*
+	* 参数说明：
+	* centerX：星球中心的x坐标
+	* centerY：星球中心的y坐标
+	*/
 	IMAGE outline;
 	loadimage(&outline, texturePath, imagesize, imagesize, true);
 	transparentimage(NULL, (int)centerX - imagesize / 2, (int)centerY - imagesize / 2, &outline);
