@@ -22,4 +22,3 @@ public:
 	void Print(int x, int y, int width, int height) const;	// 显示星球信息
 	friend ostream& operator<<(ostream& os, const Info& info);	// 重载输出运算符
 };
-

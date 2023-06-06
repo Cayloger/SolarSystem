@@ -96,11 +96,6 @@ double Planet::getOrbitalY(double centerY) const
 	return centerY + semimajorAxis * std::sin(currentAngle) * std::cos(inclination * M_PI / 180);
 }
 
-//double Planet::getRadius() const
-//{
-//	return radius;
-//}
-
 double Planet::getDistanceFromSun() const
 {
 	return distanceFromSun;

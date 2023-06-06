@@ -26,4 +26,3 @@ public:
 	void transparentimage(IMAGE* dstimg, int x, int y, IMAGE* srcimg);	// 透明绘图
 	Info& getInfo();							// 获取星球信息
 };
-

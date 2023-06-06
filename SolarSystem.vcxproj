@@ -140,13 +140,6 @@
     <ClInclude Include="Planet.h" />
     <ClInclude Include="Star.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Image Include="background.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="PlanetInfo.txt" />
-    <Text Include="StarInfo.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
